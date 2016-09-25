@@ -25,7 +25,29 @@ describe("Test Parser with context object", () => {
       ],
       currentBook: 1,
     };
-  });        
+  });  
+
+  it('TestCase Context is null', () => {
+    let query = "age";
+    expect(() => Parser.parse(null, query))
+      .toThrow (new ParserError('ERR_CODE_101', 'Context is empty'));
+  });    
+
+  it('TestCase Context is valid QueryString is empty', () => {
+    expect(() => Parser.parse({}, null))
+      .toThrow (new ParserError('ERR_CODE_200', 'Query String is empty'));
+  }); 
+
+  it('TestCase Test default arguments Context is missing', () => {
+    let query = "age";
+    expect(() => new Parser().parse(query))
+      .toThrow (new ParserError('ERR_CODE_100', 'Property age not found'));
+  });   
+
+  it('TestCase Test default arguments Context and Query String is missing', () => {
+    expect(() => new Parser().parse())
+      .toThrow (new ParserError('ERR_CODE_200', 'Query String is empty'));
+  });            
          
   it('TestCase Validation address[1] (in realtà è ammesso ma "1" è da intendersi come il valore in Context.1)', () => {
     let query = "address[1]";

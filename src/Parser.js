@@ -216,6 +216,9 @@ class Parser {
      * @param {object} context - Context
      */
     constructor (context = {}) {
+        if (!context) {
+            throw new ParserError('ERR_CODE_101', 'Context is empty');
+        }        
         this._context = context;
     }
 
